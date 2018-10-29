@@ -1,9 +1,5 @@
 # Super key
 set $mod Mod4
-
-# font
-font pango:Ubuntu 10
-
 # gaps
 gaps inner 20
 gaps outer 0
@@ -33,6 +29,16 @@ bindsym $mod+Return exec alacritty #i3-sensible-terminal
 # compton
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/compton.conf"
 
+# nitrogen
+exec_always --no-startup-id "nitrogen --restore &"
+
+# red shift
+exec_always --no-startup-id redshift-gtk
+
+# run rofi
+bindsym $mod+grave exec "rofi -modi window,drun,run -show drun -sidebar-mode"
+# bindsym $mod+` exec 'rofi -show drun'
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -50,7 +56,7 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-#bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -78,13 +84,10 @@ bindsym $mod+space focus mode_toggle
 # media keys
 bindsym $mod+F5 exec "sp play"
 
-# i3zen
-bindsym $mod+z exec --no-startup-id exec ~/.local/scripts/i3/i3zen
-
-# File manager
+# file manager
 bindym $mod+Shift+u exec "thunar"
 
-# Shutter
+# shutter
 bindsym $mod+Shift+s exec "shutter -s"
 
 # Define names for default workspaces for which we configure key bindings later on.
@@ -142,13 +145,13 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-        bindsym h resize shrink width 10 px or 10 ppt
+# These bindings trigger as soon as you enter the resize mode
+    bindsym h resize shrink width 10 px or 10 ppt
         bindsym j resize grow height 10 px or 10 ppt
         bindsym k resize shrink height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or $mod+r
+# back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
@@ -158,8 +161,8 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        # status_command i3status
-	status_command exec /home/chuck/.local/scripts/i3status/net-speed.sh
-}
+#bar {
+#        status_command i3status
+#       status_command exec /home/chuck/.local/scripts/i3status/net-speed.sh
+#}
 

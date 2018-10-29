@@ -3,13 +3,14 @@ export ZSH="/home/chuck/.oh-my-zsh"
 
 path+=('/home/chuck/.cargo/bin')
 path+=('/home/chuck/.local/bin')
+path+=('/home/chuck/.gem/ruby/2.5.0/bin')
 
 ZSH_THEME="avit"
 
 # Plugins
 plugins=(
-  git
-  vi-mode
+git
+vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -18,13 +19,15 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
+    export EDITOR='nvim'
 else
-  export EDITOR='nvim'
+    export EDITOR='nvim'
 fi
 
 # Local lib
-export "LD_LIBRARY_PATH=$HOME/.local/lib/dbg:$HOME/.local/lib/list:$HOME/.local/lib/chuck/darray:$HOME/.local/lib/bezier"
+# export "LD_LIBRARY_PATH=$HOME/.local/src/dbg:$HOME/.local/src/list:$HOME/.local/src/darray:$HOME/.local/src/bezier:$HOME/.local/lib"
+
+export "LD_LIBRARY_PATH=$HOME/.local/lib"
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
@@ -37,18 +40,33 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Base 16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+# BASE16_SHELL="$HOME/.config/base16-shell/"
+# [ -n "$PS1" ] && \
+    #     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+    #     eval "$("$BASE16_SHELL/profile_helper.sh")"
 
+
+function wrap-for-tmux {
+    local string=${1}
+    local tmux_start="\EPtmux;"
+    local tmux_end="\E\\"
+    local ESC="\E"
+    print -n -- $tmux_start${string//$ESC/$ESC$ESC}$tmux_end
+}
+
+cursor_block="\E]50;CursorShape=0\C-G"
+cursor_line="\E]50;CursorShape=1\C-G"
+
+if [[ -n $TMUX ]]; then
+    cursor_block=$(wrap-for-tmux $cursor_block)
+    cursor_line=$(wrap-for-tmux $cursor_line)
+fi
 
 function zle-keymap-select zle-line-init
 {
-    # change cursor shape in iTerm2
     case $KEYMAP in
-        vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
-        viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
+        vicmd)      print -n -- "$cursor_block";;  # block cursor
+        viins|main) print -n -- "$cursor_line";;  # line cursor
     esac
 
     zle reset-prompt
@@ -63,9 +81,11 @@ function zle-line-finish
 zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select
+export KEYTIMEOUT=1
 
 bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
 
 alias fr='cd ~/Projects/forgerock/'
 
+source /usr/share/nvm/init-nvm.sh
