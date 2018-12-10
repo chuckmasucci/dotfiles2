@@ -1,17 +1,17 @@
-" Line numbers
+
 set number
 set relativenumber
 
 " Options
-set shiftwidth=4
-set expandtab
-autocmd Filetype c setlocal tabstop=4
 autocmd BufEnter * :syntax sync fromstart
 syntax on
 set termguicolors
+set shiftwidth=2
+set expandtab
+autocmd Filetype c setlocal tabstop=2
 
-" Autoformat on save
-au BufWrite * :Autoformat
+" Use default clipboard
+set clipboard=unnamedplus
 
 " Mappings
 let mapleader = '\'
@@ -26,15 +26,23 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'arakashic/chromatica.nvim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdtree'
 call plug#end()
+
+set guifont=FuraCode\ Nerd\ Font:11
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
 
 " Buftabline settings
 set hidden
 nnoremap <C-N> :bnext<CR>
 nnoremap <C-A-N> :bprev<CR>
 
-" Chromatica settings
-let g:chromatica#responsive_mode=1
+" Gutentags settings
+let gutentags_enabled=0
 
 " Set the color scheme
 colorscheme codedark
@@ -47,3 +55,13 @@ nnoremap <Leader>b :bd<cr>
 
 " Clear search highlighting
 nnoremap <Leader><space> :noh<cr>
+
+" Split config
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Ayu theme settings
+" let ayucolor="mirage"
+
