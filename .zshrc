@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/chuck/.oh-my-zsh"
+export GPG_FINGERPRINT="FFF55B4599ACC743B0390AB190F44AFF5EAF1476"
 
 path+=('/home/chuck/.cargo/bin')
 path+=('/home/chuck/.local/bin')
@@ -87,6 +88,8 @@ bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
 
 alias fr='cd ~/Projects/forgerock/'
+alias orgui='cd ~/Projects/forgerock/saas/services/org-ui'
+alias so='source ~/.zshrc'
 
 source /usr/share/nvm/init-nvm.sh
 
