@@ -1,15 +1,14 @@
 [colors]
-accent = #fba922
+accent = #b99353
 
 [bar/top-left]
-;monitor = DVI-D-1
 monitor = DP-0
 bottom = false
 width = 100%
 height = 27
 
-background = #1c1c1c
-foreground = #eefafafa
+background = #1a1a1a
+foreground = #cccccc
 
 overline-size = 3
 overline-color = ${colors.accent}
@@ -18,23 +17,15 @@ underline-color = ${colors.accent}
 
 padding-right = 0
 
-;font-0 = NotoSans-Regular:size=8;0
-;font-1 = Unifont:size=5;0
-;font-2 = FontAwesome:size=8;0
-;font-3 = NotoSans-Regular:size=8;-1
-;font-4 = Font Awesome 5 Free Solid:size=5;0
-;font-5 = Termsynu:size=7;0
-
-font-0 = FuraCode NF:size=10;0
+font-0 = Hack:size=10;0
 font-1 = FuraCode NF:size=10;0
 font-2 = FuraCode NF:size=10;0
 font-3 = FuraCode NF:size=18;3
-font-4 = FuraCode NF:size=10;0
-font-5 = FuraCode NF:size=15;0
+font-4 = Weather Icons:size=12;0
 
 modules-left = i3
-modules-center = clock
-modules-right = 
+modules-center = clock weather
+modules-right =
 
 tray-position = right
 
@@ -44,8 +35,8 @@ bottom = false
 width = 100%
 height = 27
 
-background = #1c1c1c
-foreground = #eefafafa
+background = #1a1a1a
+foreground = #ccc
 
 overline-size = 3
 overline-color = ${colors.accent}
@@ -91,9 +82,9 @@ ws-icon-default = 
 label-dimmed-underline = ${root.background}
 
 label-focused = %icon%
-label-focused-foreground = #f5ff87
+label-focused-foreground = #fba922
 label-focused-background = #3f3f3f
-label-focused-underline = #9f78e1
+label-focused-underline = #b98eb2
 label-focused-font = 4
 label-focused-padding = 2
 
@@ -111,7 +102,7 @@ label-urgent-padding = 2
 
 label-visible = %icon%
 label-visible-foreground = #f5ff87
-label-visible-underline = #9f78e1
+label-visible-underline = #b98eb2
 label-visible-font = 4
 label-visible-padding = 2
 
@@ -179,8 +170,7 @@ bar-used-empty-foreground = #44
 type = internal/date
 interval = 5
 format-padding = 5
-format-background = #000
-format-foreground = #fff
+; format-background = #000
 date = %%{F#ee}%m/%d/%Y%%{F-}  %%{F#ee}%I:%M%p%%{F-}
 
 [module/volume]
@@ -243,5 +233,11 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = Cancel
 menu-2-1-foreground = ${colors.accent}
 menu-2-1-exec = menu-open-0
+
+[module/weather]
+type = custom/script
+exec = ~/.local/scripts/openweathermap-detailed.sh
+interval = 600
+label-font = 3
 
 ; vim:ft=dosini

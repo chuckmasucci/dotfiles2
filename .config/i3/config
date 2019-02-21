@@ -1,5 +1,6 @@
 # Super key
 set $mod Mod4
+
 # gaps
 gaps inner 20
 gaps outer 0
@@ -15,10 +16,11 @@ for_window [class=".*"] title_format "  %title"
 
 # colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #f5ff87 #f5ff87 #000000 #f5ff87   #f5ff87
-client.focused_inactive #2f537a #2f537a #ffffff #2f537a   #2f537a
-client.unfocused        #2f537a #2f537a #ffffff #2f537a   #2f537a
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
+# client.focused          #f5ff87 #f5ff87 #000000 #f5ff87   #f5ff87
+client.focused          #b99353 #b99353 #000000 #b99353   #b99353
+client.focused_inactive #b98eb2 #b98eb2 #ffffff #b98eb2   #b98eb2
+client.unfocused        #b98eb2 #b98eb2 #ffffff #b98eb2   #b98eb2
+client.urgent           #900000 #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
@@ -29,17 +31,33 @@ bindsym $mod+Return exec alacritty #i3-sensible-terminal
 # compton
 exec_always --no-startup-id "killall -q compton; compton --respect-prop-shadow --config ~/.config/compton.conf"
 
-# nitrogen
-exec_always --no-startup-id "nitrogen --restore &"
+# bluetooth
+exec --no-startup-id "blueman-applet"
+exec_always --no-startup-id "sleep 5; echo -e 'connect C0:28:8D:3F:C0:85' | bluetoothctl"
 
-# red shift
-exec_always --no-startup-id redshift-gtk
+# guake
+exec --no-startup-id "guake"
+
+# keymap
+exec --no-startup-id "/home/chuck/.local/scripts/keymap.sh"
+
+# nitrogen
+exec --no-startup-id "nitrogen --restore &"
+
+# background color
+exec --no-startup-id "hsetroot -solid '#1a1a1a'"
 
 # polybar
-exec_always --no-startup-id polybar top-left
-exec_always --no-startup-id polybar top-right
+exec --no-startup-id polybar -r top-left
+exec --no-startup-id polybar -r top-right
 
-# run rofi
+# red shift
+exec --no-startup-id redshift-gtk
+
+# xrandr
+exec --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080 --pos 3440x0 --rotate normal --output DVI-D-1 --off --output HDMI-0 --off --output DP-2 --off --output DP-1 --off --output DP-0 --primary --mode 3440x1440 --pos 0x0 --rotate normal
+
+# rofi
 bindsym $mod+grave exec "rofi -show drun -show-icons -drun-icon-theme Vertex-Maia -theme one
 
 # volume
@@ -80,7 +98,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+w sticky toggle
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -89,11 +107,8 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
-#bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
+# screenshot
+bindsym --release $mod+Shift+Print exec --no-startup-id "maim -s | tee /mnt/External1TB/screens/$(date '+%d-%m-%Y--%R:%S').png | xclip -t image/png -selection clipboard"
 
 # media keys
 bindsym $mod+F5 exec "sp play"
@@ -101,8 +116,14 @@ bindsym $mod+F5 exec "sp play"
 # file manager
 bindym $mod+Shift+u exec "thunar"
 
-# shutter
-bindsym $mod+Shift+s exec "shutter -s"
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+# Show the sup-mail scratchpad window, if any.
+bindsym $mod+Shift+s [class="Slack"] scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -159,9 +180,6 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # switch between the current and the previously focused one
 bindsym $mod+Tab workspace back_and_forth
-
-# distraction free mode
-bindsym $mod+ exec --no-startup-id i3-distraction-free
 
 # open apps in specific workspace
 # for_window [class="Code"] move --no-auto-back-and-forth to workspace $ws3

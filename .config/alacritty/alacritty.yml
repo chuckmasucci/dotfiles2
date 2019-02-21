@@ -65,7 +65,7 @@ scrolling:
 # Some applications, like Emacs, rely on knowing about the width of a tab.
 # To prevent unexpected behavior in these applications, it's also required to
 # change the `it` value in terminfo when altering this setting.
-tabspaces: 4
+tabspaces: 2
 
 # Font configuration (changes require restart)
 #
@@ -87,24 +87,23 @@ tabspaces: 4
 font:
   # Normal (roman) font face
   normal:
-    family: Hack
-    # The `style` can be specified to pick a specific face.
-    # style: Regular
+    family: FuraCode NF
+    style: Regular
 
   # Bold font face
   bold:
-    family: monospace
+    family: FuraCode NF
     # The `style` can be specified to pick a specific face.
-    # style: Bold
+    style: Bold
 
   # Italic font face
   italic:
-    family: monospace
+    family: FuraCode NF
     # The `style` can be specified to pick a specific face.
     # style: Italic
 
   # Point size
-  size: 8.5
+  size: 9
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -117,7 +116,7 @@ font:
   # increasing `y` moves the glyph upwards.
   glyph_offset:
     x: 0
-    y: 0
+    y: 1
 
 # Display the time it takes to redraw each frame.
 render_timer: false
@@ -130,72 +129,6 @@ cursor:
   style: Block
   unfocused_hollow: true
 
-# Colors (Tomorrow Night Bright)
-colors:
-  # Default colors
-  primary:
-    background: '0x000000'
-    foreground: '0xeaeaea'
-
-    # Bright and dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #
-    #dim_foreground: '0x9a9a9a'
-    #bright_foreground: '0xffffff'
-
-  # Cursor colors
-  #
-  # These will only be used when the `custom_cursor_colors` field is set to `true`.
-  cursor:
-    text: '0x000000'
-    cursor: '0xffffff'
-
-  # Normal colors
-  normal:
-    black:   '0x000000'
-    red:     '0xd54e53'
-    green:   '0xb9ca4a'
-    yellow:  '0xe6c547'
-    blue:    '0x7aa6da'
-    magenta: '0xc397d8'
-    cyan:    '0x70c0ba'
-    white:   '0xffffff'
-
-  # Bright colors
-  bright:
-    black:   '0x666666'
-    red:     '0xff3334'
-    green:   '0x9ec400'
-    yellow:  '0xe7c547'
-    blue:    '0x7aa6da'
-    magenta: '0xb77ee0'
-    cyan:    '0x54ced6'
-    white:   '0xffffff'
-
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-  dim:
-    black:   '0x333333'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xdddddd'
-
-  # Indexed Colors
-  #
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #
-  #indexed_colors:
-  #  - { index: 16, color: '0x000000' }
 
 # Visual Bell
 #
@@ -369,6 +302,8 @@ live_config_reload: true
 #   - ~AppKeypad
 #   - AppKeypad
 key_bindings:
+  # - { key: U,        mods: Control, action: ScrollPageUp                 }
+  # - { key: D,        mods: Control, action: ScrollPageDown               }
   - { key: V,        mods: Control|Shift,    action: Paste               }
   - { key: C,        mods: Control|Shift,    action: Copy                }
   - { key: Paste,                   action: Paste                        }
@@ -474,3 +409,39 @@ key_bindings:
   - { key: F10,      mods: Super,   chars: "\x1b[21;3~"                  }
   - { key: F11,      mods: Super,   chars: "\x1b[23;3~"                  }
   - { key: F12,      mods: Super,   chars: "\x1b[24;3~"                  }
+ 
+### Colorscheme
+# Base16 iA Dark - alacritty color config
+# iA Inc. (modified by aramisgithub)
+colors:
+  # Default colors
+  primary:
+    background: '0x1a1a1a'
+    foreground: '0xcccccc'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x1a1a1a'
+    cursor: '0xcccccc'
+
+  # Normal colors
+  normal:
+    black:   '0x1a1a1a'
+    red:     '0xd88568'
+    green:   '0x83a471'
+    yellow:  '0xb99353'
+    blue:    '0x8eccdd'
+    magenta: '0xb98eb2'
+    cyan:    '0x7c9cae'
+    white:   '0xcccccc'
+
+  # Bright colors
+  bright:
+    black:   '0x767676'
+    red:     '0xd86868'
+    green:   '0x83a471'
+    yellow:  '0x1d414d'
+    blue:    '0xb8b8b8'
+    magenta: '0xe8e8e8'
+    cyan:    '0x8b6c37'
+    white:   '0xf8f8f8'

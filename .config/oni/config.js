@@ -1,13 +1,11 @@
 "use strict";
 exports.__esModule = true;
 exports.activate = function (oni) {
-    console.log("config activated");
     oni.input.bind(["<enter>", "<tab>"], "contextMenu.select");
     oni.input.bind("<f11>", "oni.editor.gotoDefinition");
     oni.input.bind("<f8>", "workspace.openFolder");
 };
 exports.deactivate = function (oni) {
-    console.log("config deactivated");
 };
 exports.configuration = {
     "editor.fontFamily": "FuraCode Nerd Font",

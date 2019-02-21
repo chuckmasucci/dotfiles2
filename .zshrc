@@ -4,7 +4,9 @@ export GPG_FINGERPRINT="FFF55B4599ACC743B0390AB190F44AFF5EAF1476"
 
 path+=('/home/chuck/.cargo/bin')
 path+=('/home/chuck/.local/bin')
+path+=('/home/chuck/.local/scripts')
 path+=('/home/chuck/.gem/ruby/2.5.0/bin')
+path+=('/home/chuck/.gem/ruby/2.6.0/bin')
 
 ZSH_THEME="avit"
 
@@ -88,14 +90,20 @@ bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
 
 alias fr='cd ~/Projects/forgerock/'
+alias devtools='cd ~/Projects/forgerock/saas/devtools'
 alias orgui='cd ~/Projects/forgerock/saas/services/org-ui'
+alias gateway='cd ~/Projects/forgerock/saas/services/org-gateway'
 alias so='source ~/.zshrc'
 
-source /usr/share/nvm/init-nvm.sh
 
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/chuck/.local/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/home/chuck/.local/bin/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/home/chuck/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/chuck/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/chuck/.local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/chuck/.local/bin/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/home/chuck/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/chuck/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
