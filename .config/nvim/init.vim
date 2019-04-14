@@ -22,6 +22,7 @@ set undodir=$HOME/.vim/undo
 set undofile
 set updatetime=100
 set wildmenu
+set wrap!
 syntax on
 autocmd Filetype c setlocal tabstop=2
 autocmd BufEnter * :syntax sync fromstart
@@ -74,6 +75,15 @@ Plug 'ianks/vim-tsx'
 Plug 'tomasiser/vim-code-dark'
 Plug 'romainl/Apprentice'
 Plug 'scrooloose/nerdtree'
+Plug 'joukevandermaas/vim-ember-hbs'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'reasonml-editor/vim-reason-plus'
+Plug 'mattn/emmet-vim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 call plug#end()
 
 " NERDTree
@@ -131,7 +141,7 @@ let g:DevIconsEnableFoldersOpenClose = 1
 " Prettier
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.json,*.md,*.yaml,*.html PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.json,*.md,*.yaml,*.html,*.hbs PrettierAsync
 
 " Colorscheme
 " if filereadable(expand("~/.vimrc_background"))

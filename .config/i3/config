@@ -65,8 +65,6 @@ bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 bindsym XF86AudioMute exec "amixer set Master toggle"
 
-# Media player controls
-
 # kill focused window
 bindsym $mod+Shift+q kill
 
