@@ -1,0 +1,14 @@
+{
+  "diagnostic.refreshOnInsertMode": false,
+  "emmet.includeLanguages": {"handlebars": "html"},
+  "html.enable": true,
+  "html.format.enable": true,
+  "javascript.suggestionActions.enabled": false,
+  "suggest.snippetIndicator": " ",
+  "suggest.noselect": true,
+  "suggest.triggerAfterInsertEnter": true,
+  "tslint.autoFixOnSave": true,
+  "tslint.enable": true,
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.suggest.autoImports": true
+}
