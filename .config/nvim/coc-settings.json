@@ -3,12 +3,16 @@
   "emmet.includeLanguages": {"handlebars": "html"},
   "html.enable": true,
   "html.format.enable": true,
+  "html.filetypes": ["html", "handlebars"],
+  "html.validate.html": true,
+  "html.validate.styles": true,
   "javascript.suggestionActions.enabled": false,
   "suggest.snippetIndicator": " ",
   "suggest.noselect": true,
   "suggest.triggerAfterInsertEnter": true,
   "tslint.autoFixOnSave": true,
   "tslint.enable": true,
+  "tsserver.npm": "/home/chuck/.nvm/versions/node/v10.15.0/bin/npm",
   "typescript.preferences.quoteStyle": "single",
   "typescript.suggest.autoImports": true
 }

@@ -1,6 +1,10 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/chuck/.oh-my-zsh"
 export GPG_FINGERPRINT="FFF55B4599ACC743B0390AB190F44AFF5EAF1476"
+export KEYTIMEOUT=1
+export ATHAME_ENABLED=0
+export ATHAME_SHOW_MODE=0
+export POWERLEVEL9K_MODE='nerdfont-complete'
 
 path+=('/home/chuck/.cargo/bin')
 path+=('/home/chuck/.local/bin')
@@ -49,28 +53,53 @@ export NVM_DIR="$HOME/.nvm"
     #     eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 
-function wrap-for-tmux {
-    local string=${1}
-    local tmux_start="\EPtmux;"
-    local tmux_end="\E\\"
-    local ESC="\E"
-    print -n -- $tmux_start${string//$ESC/$ESC$ESC}$tmux_end
-}
+# function wrap-for-tmux {
+#     local string=${1}
+#     local tmux_start="\EPtmux;"
+#     local tmux_end="\E\\"
+#     local ESC="\E"
+#     print -n -- $tmux_start${string//$ESC/$ESC$ESC}$tmux_end
+# }
 
-cursor_block="\E]50;CursorShape=0\C-G"
-cursor_line="\E]50;CursorShape=1\C-G"
+# cursor_block="\E]50;CursorShape=0\C-G"
+# cursor_line="\E]50;CursorShape=1\C-G"
 
-if [[ -n $TMUX ]]; then
-    cursor_block=$(wrap-for-tmux $cursor_block)
-    cursor_line=$(wrap-for-tmux $cursor_line)
-fi
+# if [[ -n $TMUX ]]; then
+#     cursor_block=$(wrap-for-tmux $cursor_block)
+#     cursor_line=$(wrap-for-tmux $cursor_line)
+# fi
 
+# function zle-keymap-select zle-line-init
+# {
+#     case $KEYMAP in
+#         vicmd)      print -n -- "$cursor_block";;  # block cursor
+#         viins|main) print -n -- "$cursor_line";;  # line cursor
+#     esac
+
+#     zle reset-prompt
+#     zle -R
+# }
+
+# function zle-line-finish
+# {
+#     print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
+# }
+
+# {{{1 vi mode cursor indicator
 function zle-keymap-select zle-line-init
 {
-    case $KEYMAP in
-        vicmd)      print -n -- "$cursor_block";;  # block cursor
-        viins|main) print -n -- "$cursor_line";;  # line cursor
-    esac
+    # change cursor shape
+    if [[ -n "$TMUX" ]]; then  # tmux
+      case $KEYMAP in
+          vicmd)      print -n '\033[0 q';; # block cursor
+          viins|main) print -n '\033[6 q';; # line cursor
+      esac
+    else # iTerm2
+      case $KEYMAP in 
+          vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
+          viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
+      esac
+    fi
 
     zle reset-prompt
     zle -R
@@ -78,13 +107,17 @@ function zle-keymap-select zle-line-init
 
 function zle-line-finish
 {
-    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
-}
+    if [[ -n "$TMUX" ]]; then # tmux
+      print -n -- '\033[0 q'  # block cursor
+    else # iTerm2
+      print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
+    fi
+  }
 
 zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select
-export KEYTIMEOUT=1
+# unset zle_bracketed_paste
 
 bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
@@ -103,7 +136,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/chuck/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/chuck/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/chuck/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/chuck/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/google-cloud-sdk/completion.zsh.inc'; fi

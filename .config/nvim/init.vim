@@ -1,6 +1,17 @@
+execute "set t_8f=\e[38;2;%lu;%lu;%lum"
+execute "set t_8b=\e[48;2;%lu;%lu;%lum"
+
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
 set backspace=indent,eol,start
+set background=dark
 set clipboard=unnamedplus
 set completeopt-=preview
+" set cursorline
 set expandtab
 set guifont=FuraCode\ Nerd\ Font:11
 set hidden
@@ -10,7 +21,6 @@ set nolazyredraw
 set noshowmode
 set number
 set omnifunc=syntaxcomplete#Complete
-" set omnifunc=csscomplete#CompleteCSS
 set path+=**
 set relativenumber
 set shiftwidth=0
@@ -24,6 +34,7 @@ set undofile
 " set updatetime=100
 set wildmenu
 set wrap!
+set wildignore+=**/node_modules/** 
 
 set nobackup
 set nowritebackup
@@ -63,6 +74,8 @@ nnoremap <silent> <C-A-N> :bprev<CR>
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 nnoremap <leader>o <C-W>o<CR>
+nnoremap n nzz
+nnoremap N Nzz
 
 " Plugins
 call plug#begin('~/.vim/plugged')
@@ -87,11 +100,18 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'jiangmiao/auto-pairs'
 Plug 'suy/vim-context-commentstring'
-" Plug 'ruanyl/vim-sort-imports'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'Badacadabra/vim-archery'
+Plug 'romainl/Apprentice'
+Plug 'zacanger/angr.vim'
+Plug 'owickstrom/vim-colors-paramount'
+Plug 'maksimr/Lucius2'
+Plug 'gruvbox-community/gruvbox'
+Plug 'dunstontc/vim-vscode-theme'
+Plug 'lifepillar/vim-solarized8'
+Plug 'flrnprz/plastic.vim'
+Plug 'jasoncarr0/sidewalk-colorscheme'
 call plug#end()
-
-" Sort imports
-" let g:import_sort_auto = 1
 
 " Coc
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -144,9 +164,8 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips', 'UltiSnips']
 " nnoremap <tab>. :YcmCompleter FixIt<CR>
 
 " Lightline
-let g:lightline = { 'colorscheme': 'Tomorrow_Night' }
 let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode' ], [ 'readonly', 'relativepath', 'gitbranch', 'modified' ] ],
       \ },
@@ -181,7 +200,8 @@ let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.json,*.md,*.yaml,*.html,*.hbs PrettierAsync
 
-colorscheme apprentice
+" colorscheme apprentice
+colorscheme gruvbox
 
 if v:version >= 700
   au BufLeave * let b:winview = winsaveview()
