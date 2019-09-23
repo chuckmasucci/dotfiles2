@@ -5,6 +5,7 @@ export KEYTIMEOUT=1
 export ATHAME_ENABLED=0
 export ATHAME_SHOW_MODE=0
 export POWERLEVEL9K_MODE='nerdfont-complete'
+export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 
 path+=('/home/chuck/.cargo/bin')
 path+=('/home/chuck/.local/bin')
