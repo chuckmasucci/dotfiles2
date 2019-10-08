@@ -113,6 +113,7 @@ Plug 'dunstontc/vim-vscode-theme'
 Plug 'lifepillar/vim-solarized8'
 Plug 'flrnprz/plastic.vim'
 Plug 'jasoncarr0/sidewalk-colorscheme'
+Plug 'glacambre/firenvim'
 call plug#end()
 
 " Coc
