@@ -1,0 +1,50 @@
+configuration {
+  drun-display-format: "  {name} [<span weight='light' size='small'><i>({generic})</i></span>]";
+	display-drun:    "❱";
+	show-icons:      true;
+  matching: "normal";
+  sort: true;
+  sorting-method: "fzf";
+}
+
+* {
+    font: "Roboto Slab 15";
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+}
+
+window {
+    border-radius: 15px;
+    height: 600px;
+    width: 1000px;
+    padding: 10px 10px 12px;
+}
+
+#inputbar {
+  margin: 10px 0 30px;
+}
+
+#prompt {
+  color: #81a1c1;
+  font: "Roboto Slab 20";
+}
+
+#entry {
+  font: "Roboto Slab Light 20";
+}
+      
+#listview {
+    spacing: 0.75em;
+}
+
+#element selected {
+  /* background-color: #87875f; */
+  background-color: #444444;
+  color: #81a1c1;
+  /* background-color: #b98eb2; */
+  /* background-color: #81a1c1; */
+  border-radius: 15px;
+}
+
+/* vim:ft=css
