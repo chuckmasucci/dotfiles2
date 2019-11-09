@@ -2,14 +2,14 @@
 set $mod Mod4
 
 # gaps
-gaps inner 20
+gaps inner 10
 gaps outer 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # borders
-default_border pixel 5
+default_border pixel 2
 
 # title
 for_window [class=".*"] title_format "  %title"
@@ -26,13 +26,10 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 # start a terminal (alacritty)
-bindsym $mod+Return exec ~/.local/bin/alacritty/alacritty
+  bindsym $mod+Return exec alacritty
 
 # compton
 exec_always --no-startup-id "killall -q compton; compton --respect-prop-shadow --config ~/.config/compton.conf"
-
-# bluetooth
-exec --no-startup-id "blueman-applet"
 
 # guake
 exec --no-startup-id "guake"
@@ -41,14 +38,13 @@ exec --no-startup-id "guake"
 exec --no-startup-id "/home/chuck/.local/scripts/keymap.sh"
 
 # nitrogen
-exec --no-startup-id "nitrogen --restore &"
+# exec --no-startup-id "nitrogen --restore &"
 
 # background color
-exec --no-startup-id "hsetroot -solid '#1a1a1a'"
+exec_always --no-startup-id "hsetroot -solid "#1a1a1a'"
 
 # polybar
-exec --no-startup-id polybar -r top-left
-exec --no-startup-id polybar -r top-right
+exec_always --no-startup-id polybar -r top-left
 
 # red shift
 exec --no-startup-id redshift-gtk
@@ -115,7 +111,7 @@ bindsym --release $mod+Shift+Print exec --no-startup-id "maim -s | tee /home/chu
 bindsym $mod+F5 exec "sp play"
 
 # file manager
-bindym $mod+Shift+u exec "thunar"
+bindym $mod+Shift+u exec terminal -e "thunar"
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad

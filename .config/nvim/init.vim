@@ -1,66 +1,46 @@
-execute "set t_8f=\e[38;2;%lu;%lu;%lum"
-execute "set t_8b=\e[48;2;%lu;%lu;%lum"
-
-if exists('+termguicolors')
-  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-
 set backspace=indent,eol,start
 set background=dark
 set clipboard=unnamed
 set completeopt-=preview
-" set cursorline
+set cmdheight=2
 set expandtab
 set guifont=FuraCode\ Nerd\ Font:11
 set hidden
 set ignorecase
 set linespace=0
+set nobackup
 set nolazyredraw
 set noshowmode
+set nowritebackup
 set number
 set omnifunc=syntaxcomplete#Complete
 set path+=**
 set relativenumber
 set shiftwidth=0
+set shortmess+=c
 set showcmd
+set signcolumn=yes
 set smartcase
 set splitright
 set tabstop=2
-" set termguicolors
+set t_AB=^[[48;5;%dm
+set t_AF=^[[38;5;%dm
+set t_8f=\e[38;2;%lu;%lu;%lum
+set t_8b=\e[48;2;%lu;%lu;%lum
+set t_Co=256
 set undodir=$HOME/.vim/undo
 set undofile
-" set updatetime=100
 set wildmenu
 set wrap!
 set wildignore+=**/node_modules/** 
-
-set cmdheight=2
-set nobackup
-set nowritebackup
 set updatetime=300
-set signcolumn=yes
 
 syntax on
-autocmd Filetype c setlocal tabstop=2
-autocmd BufEnter * :syntax sync fromstart
-" autocmd FileType css set omnifunc=csscomplete#CompleteCSS<Paste>
-" autocmd FileType css,sass,scss setlocal omnifunc=sasscomplete#CompleteSass noci
-
 filetype plugin indent on
-
 let mapleader = '\'
-let g:netrw_banner = 0
-
-" set filetypes as typescript.tsx
-autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.jsx
-" autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.jsx
 
 " Key mappings
 nnoremap G Gzz
-" nnoremap z zz
 nnoremap <silent> <Leader>w :w<cr>
 nnoremap <silent> <Leader><space> :noh<cr>
 nnoremap <silent> <Leader>b :bd<cr>
@@ -79,58 +59,103 @@ nnoremap <leader>o <C-W>o<CR>
 nnoremap n nzz
 nnoremap N Nzz
 
-" Plugins
+
+" plugins
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
 Plug 'easymotion/vim-easymotion'
-Plug 'itchyny/lightline.vim'
-Plug 'ap/vim-buftabline'
 Plug 'prettier/vim-prettier'
 Plug 'ryanoasis/vim-devicons'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'ianks/vim-tsx'
-Plug 'chriskempson/base16-vim'
-" Plug 'mattn/emmet-vim'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'romainl/Apprentice'
+Plug 'ap/vim-buftabline'
 Plug 'scrooloose/nerdtree'
+Plug 'tomasiser/vim-code-dark'
+Plug 'dunstontc/vim-vscode-theme'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'jiangmiao/auto-pairs'
-Plug 'suy/vim-context-commentstring'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'Badacadabra/vim-archery'
-Plug 'romainl/Apprentice'
-Plug 'zacanger/angr.vim'
-Plug 'owickstrom/vim-colors-paramount'
-Plug 'maksimr/Lucius2'
-Plug 'gruvbox-community/gruvbox'
-Plug 'dunstontc/vim-vscode-theme'
-Plug 'lifepillar/vim-solarized8'
-Plug 'flrnprz/plastic.vim'
-Plug 'jasoncarr0/sidewalk-colorscheme'
-Plug 'glacambre/firenvim'
+Plug '/usr/local/opt/fzf'
+" Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-grepper'
 call plug#end()
 
-" Coc
-autocmd FileType json syntax match Comment +\/\/.\+$+
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+" fzf
+" set wildmode=list:longest,list:full
+" set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+" let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+" let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
+" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+ 
+" function! FloatingFZF()
+"   let buf = nvim_create_buf(v:false, v:true)
+"   call setbufvar(buf, '&signcolumn', 'no')
+ 
+"   let height = float2nr(10)
+"   let width = float2nr(80)
+"   let horizontal = float2nr((&columns - width) / 2)
+"   let vertical = 1
+ 
+"   let opts = {
+"         \ 'relative': 'editor',
+"         \ 'row': vertical,
+"         \ 'col': horizontal,
+"         \ 'width': width,
+"         \ 'height': height,
+"         \ 'style': 'minimal'
+"         \ }
+ 
+"   call nvim_open_win(buf, v:true, opts)
+" endfunction
+" nnoremap <silent> <C-p> :call fzf#vim#files('.', {'options': '--prompt ""'})<CR>
 
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
+" nerdtree
+map <F2> :NERDTreeToggle<CR>
+let NERDTreeHijackNetrw=1
+let NERDTreeQuitOnOpen=1
+let NERDTreeWinSize=50
 
+" colorscheme
+colorscheme codedark
+
+" buftabline settings
+let g:buftabline_indicators = 1
+nmap <leader>1 <Plug>BufTabLine.Go(1)
+nmap <leader>2 <Plug>BufTabLine.Go(2)
+nmap <leader>3 <Plug>BufTabLine.Go(3)
+nmap <leader>4 <Plug>BufTabLine.Go(4)
+nmap <leader>5 <Plug>BufTabLine.Go(5)
+nmap <leader>6 <Plug>BufTabLine.Go(6)
+nmap <leader>7 <Plug>BufTabLine.Go(7)
+nmap <leader>8 <Plug>BufTabLine.Go(8)
+nmap <leader>9 <Plug>BufTabLine.Go(9)
+nmap <leader>0 <Plug>BufTabLine.Go(10)
+
+" Prettier
+let g:prettier#quickfix_enabled = 0
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.json,*.md,*.yaml,*.html,*.hbs PrettierAsync
+
+" devicons
+let g:webdevicons_enable = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+
+" Prettier
+let g:prettier#quickfix_enabled = 0
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.json,*.md,*.yaml,*.html,*.hbs PrettierAsync
+
+" auto-pairs
+" let g:AutoPairsFlyMode = 0
+
+" coc
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
+      \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
@@ -138,14 +163,30 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
+endfunction 
+"
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -154,26 +195,8 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-let g:coc_snippet_next = '<Tab>'
-let g:coc_snippet_prev = '<S-Tab>'
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gn <Plug>(coc-diagnostic-next)
-nmap <silent> gp <Plug>(coc-diagnostic-prev)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> go :CocList outline<CR>
-nmap <silent><leader><leader>o :CocCommand tsserver.organizeImports<CR>
 
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
@@ -185,7 +208,7 @@ augroup mygroup
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+augroup end 
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -196,10 +219,15 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" nmap <silent> <C-d> <Plug>(coc-range-select)
+" xmap <silent> <C-d> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -213,78 +241,20 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-
-" NERDTree
-map <F2> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen=1
-let NERDTreeWinSize=50
-
-" Ultisnips
-let g:UltiSnipsExpandTrigger="<c-j>"
-" let g:UltiSnipsSnippetDirectories = ['~/.vim/ultisnips', 'UltiSnips']
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips', 'UltiSnips']
-
-" You Complete Me
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-" let g:ycm_always_populate_location_list = 1
-" nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
-" nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-" nnoremap <tab>. :YcmCompleter FixIt<CR>
-
-" Lightline
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'active': {
-      \   'left': [ [ 'mode' ], [ 'readonly', 'relativepath', 'gitbranch', 'modified' ] ],
-      \ },
-			\ 'component_function': {
-			\   'gitbranch': 'fugitive#head'
-			\ },
-      \ }
-
-" " Sort imports
-" let g:import_sort_auto = 1
-
-"" Buftabline settings
-let g:buftabline_indicators = 1
-nmap <leader>1 <Plug>BufTabLine.Go(1)
-nmap <leader>2 <Plug>BufTabLine.Go(2)
-nmap <leader>3 <Plug>BufTabLine.Go(3)
-nmap <leader>4 <Plug>BufTabLine.Go(4)
-nmap <leader>5 <Plug>BufTabLine.Go(5)
-nmap <leader>6 <Plug>BufTabLine.Go(6)
-nmap <leader>7 <Plug>BufTabLine.Go(7)
-nmap <leader>8 <Plug>BufTabLine.Go(8)
-nmap <leader>9 <Plug>BufTabLine.Go(9)
-nmap <leader>0 <Plug>BufTabLine.Go(10)
-
-" devicons
-let g:webdevicons_enable = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-
-" Prettier
-let g:prettier#quickfix_enabled = 0
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.json,*.md,*.yaml,*.html,*.hbs PrettierAsync
-
-" colorscheme apprentice
-colorscheme gruvbox
-
-if v:version >= 700
-  au BufLeave * let b:winview = winsaveview()
-  au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
-endif
-
-
-" now that you have automagically added the closing whatevs, hit Ctrl-l to
-" instantly break out of the whatevs-pair, or hit Ctrl-x to remove the closing
-" whatevs if you don't need it which is also handy if you forget about this
-" hack and type in the closing whatevs yourself, effectively doubling up your
-" closing whatevs and leaving you with syntax errors
-imap <C-l> <Esc>:exec "normal f" . breakout<CR>a<Space>
-imap <C-x> <Esc>:exec "normal f" . breakout<CR>xa<Space>
-
-" Coc custom highlights
-hi CocErrorFloat guibg=#dd4d4d
-hi CocErrorFloat guifg=white
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
