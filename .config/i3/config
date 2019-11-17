@@ -1,5 +1,13 @@
-# Super key
+
 set $mod Mod4
+
+# colors
+set $active     "#65788f"
+set $inactive   "#333333"
+set $urgent     "#ff0000"
+set $undefined  "#ffff00"
+set $background "#333333"
+set $white      "#ffffff"
 
 # gaps
 gaps inner 10
@@ -14,19 +22,16 @@ default_border pixel 2
 # title
 for_window [class=".*"] title_format "  %title"
 
-# colors
-# class                 border  backgr. text    indicator child_border
-# client.focused          #f5ff87 #f5ff87 #000000 #f5ff87   #f5ff87
-client.focused          #b99353 #b99353 #000000 #b99353   #b99353
-client.focused_inactive #b98eb2 #b98eb2 #ffffff #b98eb2   #b98eb2
-client.unfocused        #b98eb2 #b98eb2 #ffffff #b98eb2   #b98eb2
-client.urgent           #900000 #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-
-client.background       #ffffff
+# class                 border      backgr.       text        indicator       child_border
+client.focused          $active     $background    $white      $undefined      $active
+client.focused_inactive $inactive   $background    $white      $undefined      $inactive
+client.unfocused        $undefined  $background    $undefined  $undefined      $inactive
+client.urgent           $undefined  $background    $undefined  $undefined      $urgent
+client.placeholder      $undefined  $background    $undefined  $undefined      $undefined
+client.background       $background
 
 # start a terminal (alacritty)
-  bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec alacritty
 
 # compton
 exec_always --no-startup-id "killall -q compton; compton --respect-prop-shadow --config ~/.config/compton.conf"
@@ -41,10 +46,10 @@ exec --no-startup-id "/home/chuck/.local/scripts/keymap.sh"
 # exec --no-startup-id "nitrogen --restore &"
 
 # background color
-exec_always --no-startup-id "hsetroot -solid "#1a1a1a'"
+exec_always --no-startup-id hsetroot -solid "#333333"
 
 # polybar
-exec_always --no-startup-id polybar -r top-left
+exec --no-startup-id polybar -r top-left
 
 # red shift
 exec --no-startup-id redshift-gtk
@@ -53,11 +58,16 @@ exec --no-startup-id redshift-gtk
 exec --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080 --pos 3440x0 --rotate normal --output DVI-D-1 --off --output HDMI-0 --off --output DP-2 --off --output DP-1 --off --output DP-0 --primary --mode 3440x1440 --pos 0x0 --rotate normal
 
 # rofi
-bindsym $mod+grave exec "rofi -show drun -show-icons -drun-icon-theme Vertex-Maia -theme one
+# bindsym $mod+grave exec "rofi -show drun -show-icons -drun-icon-theme Vertex-Maia -theme one
+bindsym $mod+grave exec --no-startup-id ~/.config/rofi/bins/appsmenu
+bindsym $mod+i exec --no-startup-id ~/.config/rofi/bins/i3layoutmenu
+bindsym $mod+p exec --no-startup-id ~/.config/rofi/bins/powermenu
+bindsym $mod+m exec --no-startup-id ~/.config/rofi/bins/mpdmenu
+bindsym $mod+Print exec --no-startup-id ~/.config/rofi/bins/scrotmenu
 
 # volume
-bindsym Control+Shift+XF86AudioRaiseVolume exec amixer sset Master 5%+
-bindsym Control+Shift+XF86AudioLowerVolume exec amixer sset Master 5%-
+bindsym Control+Shift+XF86AudioRaiseVolume exec ~/.local/scripts/change-volume.sh 5%+
+bindsym Control+Shift+XF86AudioLowerVolume exec ~/.local/scripts/change-volume.sh 5%-
 bindsym Control+Shift+XF86AudioMute exec "amixer set Master toggle"
 bindsym Control+Shift+XF86AudioPlay exec playerctl play-pause
 bindsym Control+Shift+XF86AudioPause exec playerctl play-pause

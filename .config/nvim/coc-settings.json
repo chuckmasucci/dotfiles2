@@ -1,6 +1,8 @@
 {
   "diagnostic.refreshOnInsertMode": false,
   "emmet.includeLanguages": {"handlebars": "html"},
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": ["javascript", "vue"],
   "html.enable": true,
   "html.format.enable": true,
   "html.filetypes": ["html", "handlebars"],
