@@ -1,19 +1,27 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": ["css", "html", "typescript", "markdown", "reason"],
   "diagnostic.refreshOnInsertMode": false,
   "emmet.includeLanguages": {"handlebars": "html"},
   "eslint.autoFixOnSave": true,
-  "eslint.filetypes": ["javascript", "vue"],
-  "html.enable": true,
-  "html.format.enable": true,
-  "html.filetypes": ["html", "handlebars"],
-  "html.validate.html": true,
-  "html.validate.styles": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+  "eslint.packageManager": "yarn",
   "javascript.suggestionActions.enabled": false,
+  "languageserver": {
+    "reason": {
+      "command": "reason-language-server",
+      "filetypes": ["reason"]
+    }
+  },
   "suggest.snippetIndicator": " ",
   "suggest.noselect": true,
   "suggest.triggerAfterInsertEnter": true,
-  "tslint.autoFixOnSave": true,
-  "tslint.enable": true,
+  "tsserver.enable": false,
   "tsserver.npm": "/home/chuck/.nvm/versions/node/v10.15.0/bin/npm",
   "typescript.preferences.quoteStyle": "single",
   "typescript.suggest.autoImports": true

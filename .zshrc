@@ -43,50 +43,6 @@ export ARCHFLAGS="-arch x86_64"
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Base 16 Shell
-# BASE16_SHELL="$HOME/.config/base16-shell/"
-# [ -n "$PS1" ] && \
-    #     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-    #     eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-
-# function wrap-for-tmux {
-#     local string=${1}
-#     local tmux_start="\EPtmux;"
-#     local tmux_end="\E\\"
-#     local ESC="\E"
-#     print -n -- $tmux_start${string//$ESC/$ESC$ESC}$tmux_end
-# }
-
-# cursor_block="\E]50;CursorShape=0\C-G"
-# cursor_line="\E]50;CursorShape=1\C-G"
-
-# if [[ -n $TMUX ]]; then
-#     cursor_block=$(wrap-for-tmux $cursor_block)
-#     cursor_line=$(wrap-for-tmux $cursor_line)
-# fi
-
-# function zle-keymap-select zle-line-init
-# {
-#     case $KEYMAP in
-#         vicmd)      print -n -- "$cursor_block";;  # block cursor
-#         viins|main) print -n -- "$cursor_line";;  # line cursor
-#     esac
-
-#     zle reset-prompt
-#     zle -R
-# }
-
-# function zle-line-finish
-# {
-#     print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
-# }
-
-# {{{1 vi mode cursor indicator
 function zle-keymap-select zle-line-init
 {
     # change cursor shape
@@ -144,3 +100,9 @@ if [ -f '/home/chuck/google-cloud-sdk/path.zsh.inc' ]; then . '/home/chuck/googl
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/chuck/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/chuck/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

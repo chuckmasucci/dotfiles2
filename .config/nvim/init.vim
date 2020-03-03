@@ -1,12 +1,34 @@
 set backspace=indent,eol,start
 set background=dark
-set clipboard=unnamed
+set clipboard=unnamedplus
 set completeopt-=preview
 set cmdheight=2
 set expandtab
 set guifont=FuraCode\ Nerd\ Font:11
 set hidden
 set ignorecase
+set laststatus=2
+set termguicolors
+
+" TODO: Move this to a better place
+set statusline=
+set statusline+=%#PmenuSel#
+" set statusline+=%{StatuslineGit()}
+" set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\ 
+
+" set statusline+=%#LineNr#
+" set statusline+=\ %f
+"
 set linespace=0
 set nobackup
 set nolazyredraw
@@ -47,10 +69,10 @@ nnoremap <silent> <Leader>b :bd<cr>
 nnoremap <silent> <Leader><Leader>b :bufdo bwipeout<cr>
 nnoremap <silent> <Leader>q :q<cr>
 nnoremap <silent> <Leader><Leader>q :q!<cr>
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
 nnoremap <silent> <C-N> :bnext<CR>
 nnoremap <silent> <C-A-N> :bprev<CR>
 nnoremap <A-j> :m .+1<CR>==
@@ -66,7 +88,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
-Plug 'prettier/vim-prettier'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x' }
 Plug 'ryanoasis/vim-devicons'
 " Plug 'SirVer/ultisnips'
 Plug 'ianks/vim-tsx'
@@ -80,7 +102,17 @@ Plug 'jiangmiao/auto-pairs'
 Plug '/usr/local/opt/fzf'
 " Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
+Plug 'reasonml-editor/vim-reason-plus'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'arzg/vim-colors-xcode'
+Plug 'christoomey/vim-tmux-navigator'
+" Plug 'mattn/emmet-vim'
 call plug#end()
+
+" reasonml
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['/home/chuck/.local/bin/reason-language-server']
+    \ }
 
 " fzf
 " set wildmode=list:longest,list:full
@@ -116,6 +148,8 @@ map <F2> :NERDTreeToggle<CR>
 let NERDTreeHijackNetrw=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeWinSize=50
+let NERDTreeMinimalUI=1
+let NERDTreeDirArrows=1
 
 " colorscheme
 colorscheme codedark
@@ -136,17 +170,13 @@ nmap <leader>0 <Plug>BufTabLine.Go(10)
 " Prettier
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.json,*.md,*.yaml,*.html,*.hbs PrettierAsync
+" let g:prettier#config#parser = 'babylon'
+" autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.json,*.md,*.yaml,*.html,*.hbs,*.re PrettierAsync
 
 " devicons
 let g:webdevicons_enable = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
-
-" Prettier
-let g:prettier#quickfix_enabled = 0
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.json,*.md,*.yaml,*.html,*.hbs PrettierAsync
 
 " auto-pairs
 " let g:AutoPairsFlyMode = 0
@@ -239,7 +269,7 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
@@ -258,3 +288,31 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Keep cursor and window position in the same place when changing buffers
+autocmd! BufWinLeave * let b:winview = winsaveview()
+autocmd! BufWinEnter * if exists('b:winview') | call winrestview(b:winview) | unlet b:winview
+
+
+
+" Run jest for current project
+command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+
+" Run jest for current file
+command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
+
+" Run jest for current test
+nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
+
+" Init jest in current cwd, require global jest command exists
+command! JestInit :call CocAction('runCommand', 'jest.init')
+
+" Navigation mapping
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-H> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-J> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-K> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-L> :TmuxNavigateRight<cr>
+" nnoremap <silent> <C-P> :TmuxNavigatePrevious<cr>
+let g:tmux_navigator_save_on_switch = 1
