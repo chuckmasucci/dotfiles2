@@ -71,12 +71,13 @@ fuzzy-match: = true
 
 ws-icon-0 = 1:web;
 ws-icon-1 = 2:code;
-ws-icon-2 = 3:music;
-ws-icon-3 = 4:calendar;
-ws-icon-4 = 5:devtools;
-ws-icon-5 = 6:chat;
-ws-icon-6 = 7:web;
-ws-icon-7 = 8:games;
+ws-icon-2 = 3:code;
+ws-icon-3 = 4:music;
+ws-icon-4 = 5:calendar;
+ws-icon-5 = 6:devtools;
+ws-icon-6 = 7:chat;
+ws-icon-7 = 8:web;
+ws-icon-8 = 9:games;
 ws-icon-default = 
 
 label-dimmed-underline = ${root.background}

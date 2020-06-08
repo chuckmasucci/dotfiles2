@@ -33,8 +33,8 @@ client.background       $background
 # start a terminal (alacritty)
 bindsym $mod+Return exec alacritty
 
-# compton
-exec_always --no-startup-id "killall -q compton; compton --respect-prop-shadow --config ~/.config/compton.conf"
+# picom
+exec_always --no-startup-id "killall -q picom; picom"
 
 # guake
 exec --no-startup-id "guake"
@@ -59,11 +59,11 @@ exec --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080 --pos 3440x0 --rot
 
 # rofi
 # bindsym $mod+grave exec "rofi -show drun -show-icons -drun-icon-theme Vertex-Maia -theme one
-bindsym $mod+grave exec --no-startup-id ~/.config/rofi/bins/appsmenu
-bindsym $mod+i exec --no-startup-id ~/.config/rofi/bins/i3layoutmenu
-bindsym $mod+p exec --no-startup-id ~/.config/rofi/bins/powermenu
-bindsym $mod+m exec --no-startup-id ~/.config/rofi/bins/mpdmenu
-bindsym $mod+Print exec --no-startup-id ~/.config/rofi/bins/scrotmenu
+bindsym $mod+grave exec --no-startup-id rofi-appsmenu
+# bindsym $mod+i exec --no-startup-id ~/.config/rofi/bins/i3layoutmenu
+bindsym $mod+p exec --no-startup-id rofi-power
+# bindsym $mod+m exec --no-startup-id ~/.config/rofi/bins/mpdmenu
+# bindsym $mod+Print exec --no-startup-id ~/.config/rofi/bins/scrotmenu
 
 # volume
 bindsym Control+Shift+XF86AudioRaiseVolume exec ~/.local/scripts/change-volume.sh 5%+
@@ -82,6 +82,10 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+#bindsym Control+h exec "i3_tmux_vim_focus left"
+#bindsym Control+j exec "i3_tmux_vim_focus down"
+#bindsym Control+k exec "i3_tmux_vim_focus up"
+#bindsym Control+l exec "i3_tmux_vim_focus right"
 # bindsym Control+h focus left
 # bindsym Control+j focus down
 # bindsym Control+k focus up
@@ -136,13 +140,13 @@ bindsym $mod+Shift+s [class="Slack"] scratchpad show
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:web"
 set $ws2 "2:code"
-set $ws3 "3:music"
-set $ws4 "4:calendar"
-set $ws5 "5:devtools"
-set $ws6 "6:chat"
-set $ws7 "7:web"
-set $ws8 "8:games"
-set $ws9 "9"
+set $ws3 "3:code"
+set $ws4 "4:music"
+set $ws5 "5:calendar"
+set $ws6 "6:devtools"
+set $ws7 "7:chat"
+set $ws8 "8:web"
+set $ws9 "9:games"
 set $ws10 "10"
 
 set $primary DP-0
@@ -150,12 +154,13 @@ set $secondary DVI-D-0
 
 workspace "1:web" output $primary
 workspace "2:code" output $primary
-workspace "3:music" output $primary
-workspace "4:calendar" output $primary
-workspace "5:devtools" output $secondary
-workspace "6:chat" output $secondary
-workspace "7:web" output $secondary
-workspace "8:games" output $primary
+workspace "3:code" output $primary
+workspace "4:music" output $primary
+workspace "5:calendar" output $primary
+workspace "6:devtools" output $secondary
+workspace "7:chat" output $secondary
+workspace "8:web" output $secondary
+workspace "9:games" output $primary
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -190,14 +195,16 @@ bindsym $mod+Tab workspace back_and_forth
 
 # open apps in specific workspace
 # for_window [class="Code"] move --no-auto-back-and-forth to workspace $ws3
-assign [class="Code"] $ws2
-assign [class="Slack"] $ws6
-assign [class="Steam"] $ws8
-for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws3
+assign [class="Slack"] $ws7
+assign [class="Steam"] $ws9
+for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws4
 
 # floating windows
+for_window [window_type="notification"] floating enable
 for_window [class="Shutter" instance="shutter"] floating enable
 for_window [class="vlc" instance="vlc"] floating enable
+for_window [class="Steam" title="Steam - News.*"] floating enable
+for_window [class="Steam" title="Friends List"] floating enable
 for_window [class="Google-chrome" instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating enable
 for_window [window_role="pop-up"] floating enable
 
@@ -226,7 +233,7 @@ bindsym $mod+r mode "resize"
 
 # move floating window to center
 bindsym $mod+C move container absolute position center
-bindsym $mod+Shift+M resize set 1920 1080; move container absolute position center
+bindsym $mod+Shift+M floating toggle; resize set 1920 1389; move container absolute position center
 bindsym $mod+shift+F resize set 2000
 
 

@@ -6,12 +6,15 @@ export ATHAME_ENABLED=0
 export ATHAME_SHOW_MODE=0
 export POWERLEVEL9K_MODE='nerdfont-complete'
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
+export TERM="xterm-256color"
 
 path+=('/home/chuck/.cargo/bin')
 path+=('/home/chuck/.local/bin')
 path+=('/home/chuck/.local/scripts')
 path+=('/home/chuck/.gem/ruby/2.5.0/bin')
 path+=('/home/chuck/.gem/ruby/2.6.0/bin')
+
+fpath=(~/.local/share/zsh $fpath)
 
 ZSH_THEME="avit"
 
@@ -84,7 +87,13 @@ alias devtools='cd ~/Projects/forgerock/saas/devtools'
 alias orgui='cd ~/Projects/forgerock/saas/services/org-ui'
 alias gateway='cd ~/Projects/forgerock/saas/services/org-gateway'
 alias so='source ~/.zshrc'
+alias login='cd ~/Projects/forgerock/platform-ui/packages/platform-login'
+alias enduser='cd ~/Projects/forgerock/platform-ui/packages/platform-enduser'
+alias admin='cd ~/Projects/forgerock/platform-ui/packages/platform-admin'
+alias dy='cd ~/Projects/smithco/david-yurman/site-redesign'
 
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
@@ -95,14 +104,21 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 # The next line enables shell command completion for gcloud.
   if [ -f '/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/google-cloud-sdk/completion.zsh.inc'; fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/chuck/google-cloud-sdk/path.zsh.inc' ]; then . '/home/chuck/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/chuck/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/chuck/google-cloud-sdk/completion.zsh.inc'; fi
-
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export YVM_DIR=/home/chuck/.yvm
+[ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/chuck/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/chuck/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/chuck/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/chuck/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# jEnv
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
